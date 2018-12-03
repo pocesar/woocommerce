@@ -5,7 +5,7 @@
  * Description: Gateway de pagamento PagSeguro para WooCommerce.
  * Author: PagSeguro Internet LTDA.
  * Author URI: https://pagseguro.uol.com.br/v2/guia-de-integracao/downloads.html#!Modulos
- * Version: 2.0.0
+ * Version: 2.0.1
  * License: GPLv2 or later
  * Text Domain: woocommerce-pagseguro-oficial
  * Domain Path: languages/
