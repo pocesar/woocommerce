@@ -32,7 +32,7 @@ if ( ! class_exists( 'WC_PagSeguro' )) :
          *
          * @var string
          */
-        const VERSION = '2.0.0';
+        const VERSION = '2.0.1';
 
         /**
          * Instance of this class.
@@ -183,52 +183,54 @@ if ( ! class_exists( 'WC_PagSeguro' )) :
     };
     add_action('admin_head', 'template_modals');
 
-    /**
-     * Include dataTables styles
-     */
-    add_action('admin_enqueue_scripts', function(){
-        wp_enqueue_style(
-            'dataTable-styles',
-            plugins_url('/assets/css/jquery.dataTables.css', PS_PLUGIN_DIR), '', 1, 'screen'
-        );
-    });
+    if (function_exists('is_checkout') && is_checkout()) {
+        /**
+         * Include dataTables styles
+         */
+        add_action('admin_enqueue_scripts', function(){
+            wp_enqueue_style(
+                'dataTable-styles',
+                plugins_url('/assets/css/jquery.dataTables.css', PS_PLUGIN_DIR), '', 1, 'screen'
+            );
+        });
 
-    /**
-     * Include ajax object
-     */
-    add_action( 'wp_enqueue_scripts', function(){
-        wp_enqueue_script( 'ajax-script', plugins_url( '/assets/js/direct-payment.js', PS_PLUGIN_DIR ), array('jquery') );
-        wp_localize_script( 'ajax-script', 'ajax_object',
-            array( 'ajax_url' => plugins_url( '/classes/class-wc-pagseguro-ajax.php' , PS_PLUGIN_DIR ) ));
-    });
+        /**
+         * Include ajax object
+         */
+        add_action( 'wp_enqueue_scripts', function(){
+            wp_enqueue_script( 'ajax-script', plugins_url( '/assets/js/direct-payment.js', PS_PLUGIN_DIR ), array('jquery') );
+            wp_localize_script( 'ajax-script', 'ajax_object',
+                array( 'ajax_url' => plugins_url( '/classes/class-wc-pagseguro-ajax.php' , PS_PLUGIN_DIR ) ));
+        });
 
-    /**
-     * Include bootstrap to front-end
-     */
-    add_action('wp_enqueue_scripts', function(){
-        wp_enqueue_script(
-            'bootstrap-script',
-            plugins_url( '/assets/js/vendor/bootstrap.min.js', PS_PLUGIN_DIR ), array('jquery')
-        );
-        wp_enqueue_style(
-            'bootstrap-styles',
-            plugins_url('/assets/css/vendor/bootstrap.min.css', PS_PLUGIN_DIR)
-        );
-    });
+        /**
+         * Include bootstrap to front-end
+         */
+        add_action('wp_enqueue_scripts', function(){
+            wp_enqueue_script(
+                'bootstrap-script',
+                plugins_url( '/assets/js/vendor/bootstrap.min.js', PS_PLUGIN_DIR ), array('jquery')
+            );
+            wp_enqueue_style(
+                'bootstrap-styles',
+                plugins_url('/assets/css/vendor/bootstrap.min.css', PS_PLUGIN_DIR)
+            );
+        });
 
-    /**
-     * Direct payment styles
-     */
-    add_action('wp_enqueue_scripts', function (){
-        wp_enqueue_style(
-            'font-awesome-styles',
-            plugins_url('/assets/css/vendor/font-awesome.min.css', PS_PLUGIN_DIR)
-        );
-        wp_enqueue_style(
-            'direct-payment-styles',
-            plugins_url('/assets/css/direct-payment.css', PS_PLUGIN_DIR)
-        );
-    });
+        /**
+         * Direct payment styles
+         */
+        add_action('wp_enqueue_scripts', function (){
+            wp_enqueue_style(
+                'font-awesome-styles',
+                plugins_url('/assets/css/vendor/font-awesome.min.css', PS_PLUGIN_DIR)
+            );
+            wp_enqueue_style(
+                'direct-payment-styles',
+                plugins_url('/assets/css/direct-payment.css', PS_PLUGIN_DIR)
+            );
+        });
+    }
 
     /**
      * Intercept woocommerce checkout process
