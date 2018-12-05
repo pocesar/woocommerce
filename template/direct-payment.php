@@ -654,8 +654,11 @@ if ($user_data) {
 
         (function() {
             $('#card_num').on('paste', function (e) {
-                e.preventDefault();
-                return false;
+                var $this = $(this);
+
+                setTimeout(function(){
+                    $this.triggerHandler('blur');
+                }, 300);
             });
         }());
 

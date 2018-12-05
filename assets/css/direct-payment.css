@@ -1591,6 +1591,7 @@ a.badge:focus {
 .tabs-pagseguro > .items {
     width: 100%;
     list-style: none;
+    margin-left: 0;
 }
 
 .tabs-pagseguro > .items  > .item {

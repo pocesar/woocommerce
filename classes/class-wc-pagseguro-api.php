@@ -303,7 +303,20 @@ class WC_PagSeguro_Api
     private function set_shipping($request, $order)
     {
         $address_1 = explode(', ', $order->get_billing_address_1());
-        $address_2 = explode(', ', $order->get_billing_address_2());
+        try {
+            $address_2 = explode(', ', $order->get_billing_address_2());
+
+            if (empty($address_2[0])) {
+                throw new Exception('Empty neighborhood');
+            }
+        } catch (Exception $e) {
+            if (!empty($address_1[2])) {
+                $address_2 = array($address_1[2]);
+            } else {
+                $address_2 = array('');
+            }
+        }
+
 
         $request->setShipping()->setAddress()->withParameters(
             $address_1[0],
@@ -398,7 +411,20 @@ class WC_PagSeguro_Api
     private function set_billing($request, $order)
     {
         $address_1 = explode(', ', $order->get_billing_address_1());
-        $address_2 = explode(', ', $order->get_billing_address_2());
+
+        try {
+            $address_2 = explode(', ', $order->get_billing_address_2());
+
+            if (empty($address_2[0])) {
+                throw new Exception('Empty neighborhood');
+            }
+        } catch (Exception $e) {
+            if (!empty($address_1[2])) {
+                $address_2 = array($address_1[2]);
+            } else {
+                $address_2 = array('');
+            }
+        }
 
         //Set billing information for credit card
         $request->setBilling()->setAddress()->withParameters(

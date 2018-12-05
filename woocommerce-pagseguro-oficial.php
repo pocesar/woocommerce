@@ -183,7 +183,7 @@ if ( ! class_exists( 'WC_PagSeguro' )) :
     };
     add_action('admin_head', 'template_modals');
 
-    if (function_exists('is_checkout') && is_checkout()) {
+    if (strpos($_SERVER['REQUEST_URI'], 'pagseguro/') !== FALSE) {
         /**
          * Include dataTables styles
          */
@@ -222,8 +222,16 @@ if ( ! class_exists( 'WC_PagSeguro' )) :
          */
         add_action('wp_enqueue_scripts', function (){
             wp_enqueue_style(
+                'font-awesome-all-styles',
+                plugins_url('/assets/css/vendor/all.min.css', PS_PLUGIN_DIR)
+            );
+            wp_enqueue_style(
+                'font-awesome-shims-styles',
+                plugins_url('/assets/css/vendor/v4-shims.min.css', PS_PLUGIN_DIR)
+            );
+            wp_enqueue_style(
                 'font-awesome-styles',
-                plugins_url('/assets/css/vendor/font-awesome.min.css', PS_PLUGIN_DIR)
+                plugins_url('/assets/css/vendor/fontawesome.min.css', PS_PLUGIN_DIR)
             );
             wp_enqueue_style(
                 'direct-payment-styles',
@@ -242,19 +250,24 @@ if ( ! class_exists( 'WC_PagSeguro' )) :
         if ($_POST['payment_method']) {
             try {
                 $billing_address_1 = explode(', ', $_POST['billing_address_1']);
+
                 if (!isset($billing_address_1[1])) {
                     throw new Exception('[PAGSEGURO]: Invalid address');
                 };
             } catch (Exception $exception) {
-                wc_add_notice(__('Endereço com formato inválido. Exemplo: Rua São João, 11'), 'error');
+                wc_add_notice(__('Endereço com formato inválido. Exemplo: Rua São João, 11, bairro Carmo'), 'error');
             }
 
             try {
                 if (!isset($_POST['billing_address_2']) || !$_POST['billing_address_2']) {
-                    throw new Exception('[PAGSEGURO]: Invalid address');
+                    $billing_address_1 = explode(', ', $_POST['billing_address_1']);
+
+                    if (!isset($billing_address_1[2])) {
+                        throw new Exception('[PAGSEGURO]: Invalid address');
+                    }
                 }
             } catch (Exception $exception) {
-                wc_add_notice(__('Por favor, preencha o bairro.'), 'error');
+                wc_add_notice(__('Por favor, preencha o bairro após o número da rua. Exemplo: Rua São João, 11, bairro Carmo'), 'error');
             }
 
             try {
