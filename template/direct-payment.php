@@ -157,9 +157,9 @@ if ($user_data) {
                                 <span id="card_total">R$ 00,00</span>
                             </div>
                         </div>
-                        <div class="form-group" align="right">
+                        <div class="form-group">
                             <label class="col-xs-12 col-sm-12">
-                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>"
+                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>">
                             </label>
                         </div>
                         <button class="btn-pagseguro btn-form --align-right" data-target-payment="credit" type="button">Concluir</button>
@@ -203,9 +203,9 @@ if ($user_data) {
                             <span class="form-error hide">A opção de banco não pode estar vazia, escolha uma das opções acima.</span>
                         </div><!-- /.form-group -->
 
-                        <div class="form-group" align="right">
+                        <div class="form-group">
                             <label class="col-xs-12 col-sm-12">
-                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>"
+                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>">
                             </label>
                         </div>
                         <button class="btn-pagseguro btn-form --align-right" type="button" data-target-payment="debit">Concluir</button>
@@ -222,9 +222,9 @@ if ($user_data) {
                                 <span class="form-error custom-validate document-personal hide">O número do documento não é válido.</span>
                             </div>
                         </div>
-                        <div class="form-group" align="right">
+                        <div class="form-group">
                             <label class="col-xs-12 col-sm-12">
-                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>"
+                                Esta compra está sendo feita no Brasil <img src="<?=plugin_dir_url(__DIR__).'flag-origin-country.png' ?>">
                             </label>
                         </div>
                         <button class="btn-pagseguro btn-form --align-right" type="button" data-target-payment="billet">Concluir</button>
